@@ -87,9 +87,9 @@ var ImgFigure = function (_React$Component) {
 
       // 如果图片的旋转角度有值并且不为0，添加旋转角度
       if (this.props.arrange.rotate) {
-        var types = ['-moz-', '-ms-', '-webkit-', ''];
+        var types = ['MozTransform', 'msTransform', 'WebkitTransform', 'transform'];
         for (var i in types) {
-          stylObj[types[i] + 'transform'] = 'rotate(' + this.props.arrange.rotate + 'deg)';
+          stylObj[types[i]] = 'rotate(' + this.props.arrange.rotate + 'deg)';
         }
       }
 
@@ -137,15 +137,24 @@ var ImgFigure = function (_React$Component) {
 var ControllerUnit = function (_React$Component2) {
   _inherits(ControllerUnit, _React$Component2);
 
-  function ControllerUnit() {
+  function ControllerUnit(props) {
     _classCallCheck(this, ControllerUnit);
 
-    return _possibleConstructorReturn(this, (ControllerUnit.__proto__ || Object.getPrototypeOf(ControllerUnit)).apply(this, arguments));
+    var _this2 = _possibleConstructorReturn(this, (ControllerUnit.__proto__ || Object.getPrototypeOf(ControllerUnit)).call(this, props));
+
+    _this2.handleClick = _this2.handleClick.bind(_this2);
+    return _this2;
   }
 
   _createClass(ControllerUnit, [{
     key: 'handleClick',
     value: function handleClick(event) {
+
+      if (this.props.arrange.isCenter) {
+        this.props.inverse();
+      } else {
+        this.props.center();
+      }
 
       event.stopPropagation();
       event.preventDefault();
@@ -153,7 +162,19 @@ var ControllerUnit = function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('span', { className: 'controller-unit', onClick: this.handleClick });
+
+      var controllerUnitClassName = "controller-unit";
+
+      // 如果对应的是居中的图片，显示控制按钮的居中态
+      if (this.props.arrange.isCenter) {
+        controllerUnitClassName += " is-center";
+
+        if (this.props.arrange.isInverse) {
+          controllerUnitClassName += " is-inverse";
+        }
+      }
+
+      return _react2.default.createElement('span', { className: controllerUnitClassName, onClick: this.handleClick });
     }
   }]);
 
@@ -299,7 +320,7 @@ var AppComponent = function (_React$Component3) {
 
       // 取出要布局上侧图片的状态信息
       // 标记上侧区域的图片是从数组的哪个位置拿出来的
-      var topImgNum = Math.ceil(Math.random() * 2); // 随机数0或者1，取一张获取不取
+      var topImgNum = Math.floor(Math.random() * 2); // 随机数0或者1，取一张获取不取
       var topImgSpliceIndex = Math.ceil(Math.random() * (imgsArrangeArr.length - topImgNum));
       imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex, topImgNum);
 
@@ -392,11 +413,10 @@ var AppComponent = function (_React$Component3) {
           inverse: _this6.inverse(index),
           center: _this6.center(index) }));
 
-        controllerUnits.push(_react2.default.createElement(ControllerUnit, null));
+        controllerUnits.push(_react2.default.createElement(ControllerUnit, { inverse: _this6.inverse(index),
+          center: _this6.center(index),
+          arrange: _this6.state.imgsArrangeArr[index] }));
       });
-      // imagesURLs.forEach(function(img, index)  {
-      //   imgFigures.push(<ImgFigure data={img} key={index} ref={'imgFigure' + index}/>)
-      // }.bind(this))
 
       return _react2.default.createElement(
         'section',

@@ -58,9 +58,9 @@ class ImgFigure extends React.Component {
 
     // 如果图片的旋转角度有值并且不为0，添加旋转角度
     if (this.props.arrange.rotate) {
-      let types = ['-moz-', '-ms-', '-webkit-', ''];
+      let types = ['MozTransform', 'msTransform', 'WebkitTransform', 'transform'];
       for (let i in types) {
-        stylObj[types[i] + 'transform'] = 'rotate(' + this.props.arrange.rotate + 'deg)';
+        stylObj[types[i]] = 'rotate(' + this.props.arrange.rotate + 'deg)';
       }
 
     }
@@ -94,15 +94,41 @@ class ImgFigure extends React.Component {
 
 class ControllerUnit extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick(event) {
+
+
+    if (this.props.arrange.isCenter) {
+      this.props.inverse();
+    } else {
+      this.props.center();
+    }
 
     event.stopPropagation();
     event.preventDefault();
   }
 
   render() {
+
+    let controllerUnitClassName = "controller-unit";
+
+    // 如果对应的是居中的图片，显示控制按钮的居中态
+    if (this.props.arrange.isCenter) {
+      controllerUnitClassName += " is-center";
+
+      if (this.props.arrange.isInverse) {
+        controllerUnitClassName += " is-inverse";
+      }
+
+    }
+
     return (
-      <span className="controller-unit" onClick={this.handleClick}></span>
+      <span className={controllerUnitClassName} onClick={this.handleClick}></span>
     )
   }
 }
@@ -230,7 +256,7 @@ class AppComponent extends React.Component {
 
     // 取出要布局上侧图片的状态信息
     // 标记上侧区域的图片是从数组的哪个位置拿出来的
-    let topImgNum = Math.ceil(Math.random() * 2); // 随机数0或者1，取一张获取不取
+    let topImgNum = Math.floor(Math.random() * 2); // 随机数0或者1，取一张获取不取
     let topImgSpliceIndex = Math.ceil(Math.random() * (imgsArrangeArr.length - topImgNum));
     imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex, topImgNum);
 
@@ -318,11 +344,10 @@ class AppComponent extends React.Component {
                                 inverse={this.inverse(index)}
                                 center={this.center(index)}/>)
 
-      controllerUnits.push(<ControllerUnit></ControllerUnit>)
-    })
-    // imagesURLs.forEach(function(img, index)  {
-    //   imgFigures.push(<ImgFigure data={img} key={index} ref={'imgFigure' + index}/>)
-    // }.bind(this))
+      controllerUnits.push(<ControllerUnit inverse={this.inverse(index)}
+                                            center={this.center(index)}
+                                           arrange={this.state.imgsArrangeArr[index]}/>)
+    });
 
     return (
       <section className = "stage" ref="stage">
