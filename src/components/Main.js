@@ -344,7 +344,7 @@ class AppComponent extends React.Component {
                                 inverse={this.inverse(index)}
                                 center={this.center(index)}/>)
 
-      controllerUnits.push(<ControllerUnit inverse={this.inverse(index)}
+      controllerUnits.push(<ControllerUnit key={index} inverse={this.inverse(index)}
                                             center={this.center(index)}
                                            arrange={this.state.imgsArrangeArr[index]}/>)
     });

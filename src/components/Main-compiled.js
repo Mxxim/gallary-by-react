@@ -413,7 +413,7 @@ var AppComponent = function (_React$Component3) {
           inverse: _this6.inverse(index),
           center: _this6.center(index) }));
 
-        controllerUnits.push(_react2.default.createElement(ControllerUnit, { inverse: _this6.inverse(index),
+        controllerUnits.push(_react2.default.createElement(ControllerUnit, { key: index, inverse: _this6.inverse(index),
           center: _this6.center(index),
           arrange: _this6.state.imgsArrangeArr[index] }));
       });
