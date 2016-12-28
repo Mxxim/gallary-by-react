@@ -231,7 +231,8 @@ var AppComponent = function (_React$Component3) {
     value: function componentDidMount() {
 
       // 拿到舞台的大小
-      var stageDOM = _reactDom2.default.findDOMNode(this.refs.stage),
+      // var stageDOM = ReactDOM.findDOMNode(this.refs.stage),
+      var stageDOM = this.stage,
           stageW = stageDOM.scrollWidth,
           stageH = stageDOM.scrollHeight,
           stageHalfW = Math.ceil(stageW / 2),
@@ -420,7 +421,9 @@ var AppComponent = function (_React$Component3) {
 
       return _react2.default.createElement(
         'section',
-        { className: 'stage', ref: 'stage' },
+        { className: 'stage', ref: function ref(stage) {
+            _this6.stage = stage;
+          } },
         _react2.default.createElement(
           'section',
           { className: 'img-sec' },

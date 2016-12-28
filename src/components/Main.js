@@ -175,7 +175,8 @@ class AppComponent extends React.Component {
   componentDidMount(){
 
     // 拿到舞台的大小
-    var stageDOM = ReactDOM.findDOMNode(this.refs.stage),
+    // var stageDOM = ReactDOM.findDOMNode(this.refs.stage),
+    var stageDOM = this.stage,
       stageW = stageDOM.scrollWidth,
       stageH = stageDOM.scrollHeight,
       stageHalfW = Math.ceil(stageW / 2),
@@ -350,7 +351,7 @@ class AppComponent extends React.Component {
     });
 
     return (
-      <section className = "stage" ref="stage">
+      <section className = "stage" ref={(stage) => { this.stage = stage; }}>
         <section className = "img-sec">
           {imgFigures}
         </section>
