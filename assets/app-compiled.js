@@ -1861,7 +1861,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		function t(e) {
 			o(this, t);var n = i(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));return n.centerPos = { left: 0, top: 0 }, n.hPosRange = { leftSecX: [0, 0], rightSecX: [0, 0], y: [0, 0] }, n.vPosRange = { x: [0, 0], topY: [0, 0] }, n.state = { imgsArrangeArr: [] }, n;
 		}return a(t, e), s(t, [{ key: "componentDidMount", value: function value() {
-				var e = p.default.findDOMNode(this.refs.stage),
+				var e = this.stage,
 				    t = e.scrollWidth,
 				    n = e.scrollHeight,
 				    r = Math.ceil(t / 2),
@@ -1870,8 +1870,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				    a = i.scrollWidth,
 				    s = i.scrollHeight,
 				    u = Math.ceil(a / 2),
-				    c = Math.ceil(s / 2);
-				this.centerPos.left = r - u, this.centerPos.top = o - c, this.hPosRange.leftSecX[0] = -u, this.hPosRange.leftSecX[1] = r - 3 * u, this.hPosRange.rightSecX[0] = r + u, this.hPosRange.rightSecX[1] = t - u, this.hPosRange.y[0] = -c, this.hPosRange.y[1] = n - c, this.vPosRange.x[0] = r - a, this.vPosRange.x[1] = r, this.vPosRange.topY[0] = -c, this.vPosRange.topY[1] = o - 3 * c, this.rearrange(0);
+				    c = Math.ceil(s / 2);this.centerPos.left = r - u, this.centerPos.top = o - c, this.hPosRange.leftSecX[0] = -u, this.hPosRange.leftSecX[1] = r - 3 * u, this.hPosRange.rightSecX[0] = r + u, this.hPosRange.rightSecX[1] = t - u, this.hPosRange.y[0] = -c, this.hPosRange.y[1] = n - c, this.vPosRange.x[0] = r - a, this.vPosRange.x[1] = r, this.vPosRange.topY[0] = -c, this.vPosRange.topY[1] = o - 3 * c, this.rearrange(0);
 			} }, { key: "inverse", value: function value(e) {
 				var t = this;return function () {
 					var n = t.state.imgsArrangeArr;n[e].isInverse = !n[e].isInverse, t.setState({ imgsArrangeArr: n });
@@ -1900,7 +1899,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				    t = [],
 				    n = [];return f.forEach(function (r, o) {
 					e.state.imgsArrangeArr[o] || (e.state.imgsArrangeArr[o] = { pos: { left: "0", top: "0" }, rotate: 0, isInverse: !1, isCenter: !1 }), n.push(c.default.createElement(v, { data: r, key: o, ref: "imgFigure" + o, arrange: e.state.imgsArrangeArr[o], inverse: e.inverse(o), center: e.center(o) })), t.push(c.default.createElement(g, { key: o, inverse: e.inverse(o), center: e.center(o), arrange: e.state.imgsArrangeArr[o] }));
-				}), c.default.createElement("section", { className: "stage", ref: "stage" }, c.default.createElement("section", { className: "img-sec" }, n), c.default.createElement("nav", { className: "controller-nav" }, t));
+				}), c.default.createElement("section", { className: "stage", ref: function ref(t) {
+						e.stage = t;
+					} }, c.default.createElement("section", { className: "img-sec" }, n), c.default.createElement("nav", { className: "controller-nav" }, t));
 			} }]), t;
 	}(c.default.Component);y.defaultProps = {}, t.default = y;
 }, function (e, t, n) {
@@ -2529,7 +2530,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		}, performUpdateIfNecessary: function performUpdateIfNecessary(e) {
 			null != this._pendingElement ? m.receiveComponent(this, this._pendingElement, e, this._context) : null !== this._pendingStateQueue || this._pendingForceUpdate ? this.updateComponent(e, this._currentElement, this._currentElement, this._context, this._context) : this._updateBatchNumber = null;
 		}, updateComponent: function updateComponent(e, t, n, r, o) {
-			var i = this._instance;null == i ? s("136", this.getName() || "ReactCompositeComponent") : void 0;var a,
+			var i = this._instance;
+			null == i ? s("136", this.getName() || "ReactCompositeComponent") : void 0;var a,
 			    u = !1;this._context === o ? a = i.context : (a = this._processContext(o), u = !0);var c = t.props,
 			    l = n.props;t !== n && (u = !0), u && i.componentWillReceiveProps && i.componentWillReceiveProps(l, a);var p = this._processPendingState(l, a),
 			    d = !0;this._pendingForceUpdate || (i.shouldComponentUpdate ? d = i.shouldComponentUpdate(l, p, a) : this._compositeType === b.PureClass && (d = !g(c, l) || !g(i.state, p))), this._updateBatchNumber = null, d ? (this._pendingForceUpdate = !1, this._performComponentUpdate(n, l, p, a, e, o)) : (this._currentElement = n, this._context = o, i.props = l, i.state = p, i.context = a);
