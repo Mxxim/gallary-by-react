@@ -18,7 +18,7 @@ let config = Object.assign({}, baseConfig, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
-    new BowerWebpackPlugin({
+    new BowerWebpackPlugin({    // 在js中可以使用require来引入bower插件
       searchResolveModulesDirectories: false
     }),
     new webpack.optimize.UglifyJsPlugin(), // 压缩输出的js代码

@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/../dist/assets'),
     filename: 'app.js',
-    publicPath: defaultSettings.publicPath
+    publicPath: defaultSettings.publicPath // 指定在浏览器中引用时的输出文件的URL地址，比如 <link href="/assets/spinner.gif"/>
   },
   devServer: {
     contentBase: './src/',
@@ -30,7 +30,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      actions: `${defaultSettings.srcPath}/actions/`,
+      actions: `${defaultSettings.srcPath}/actions/`, // ES6新语法
       components: `${defaultSettings.srcPath}/components/`,
       sources: `${defaultSettings.srcPath}/sources/`,
       stores: `${defaultSettings.srcPath}/stores/`,

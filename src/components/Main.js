@@ -127,9 +127,8 @@ class ControllerUnit extends React.Component {
 
     }
 
-    return (
-      <span className={controllerUnitClassName} onClick={this.handleClick}></span>
-    )
+    return <span className={controllerUnitClassName} onClick={this.handleClick} />
+
   }
 }
 
@@ -343,11 +342,13 @@ class AppComponent extends React.Component {
                                  ref={'imgFigure' + index}
                                 arrange={this.state.imgsArrangeArr[index]}
                                 inverse={this.inverse(index)}
-                                center={this.center(index)}/>)
+                                center={this.center(index)}
+                      />);
 
       controllerUnits.push(<ControllerUnit key={index} inverse={this.inverse(index)}
                                             center={this.center(index)}
-                                           arrange={this.state.imgsArrangeArr[index]}/>)
+                                           arrange={this.state.imgsArrangeArr[index]}
+                            />);
     });
 
     return (
