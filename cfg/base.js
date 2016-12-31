@@ -15,7 +15,8 @@ module.exports = {
   debug: true,
   devtool: 'eval',
   output: {
-    path: path.join(__dirname, '/../dist/gallary-by-react/assets'),
+    // path: path.join(__dirname, '/../dist/gallary-by-react/assets'),
+    path: path.join(__dirname, '/../dist/assets'),
     filename: 'app.js',
     publicPath: defaultSettings.publicPath // 指定在浏览器中引用时的输出文件的URL地址，比如 <link href="/assets/spinner.gif"/>
   },
